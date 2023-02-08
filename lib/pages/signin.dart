@@ -55,16 +55,17 @@ class _SigninState extends State<Signin> {
                           children:  [
                             SizedBox(height: 40,),
                             
-                            
+                              Image.network('http://cdn.onlinewebfonts.com/svg/img_515258.png',width: 90,height: 60,),
+                              SizedBox(height: 10,),
                               Text("Login",
                                 style: TextStyle(
                                   color: Color.fromARGB(255, 0, 0, 0),
-                                  fontSize: 45,
+                                  fontSize: 30,
                                   fontWeight: FontWeight.bold
                                 ),
                               ),
                               
-                            SizedBox(height: 90,),
+                            SizedBox(height: 60,),
 
 
                             TextField(

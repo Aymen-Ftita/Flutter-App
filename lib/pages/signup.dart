@@ -16,6 +16,8 @@ class signup extends StatefulWidget {
 class _signupState extends State<signup> {
   bool show = true;
   bool Not_match = false;
+  bool Vemail = false;
+  TextEditingController _email = TextEditingController();
   TextEditingController _pass1 = TextEditingController();
   TextEditingController _pass2 = TextEditingController();
   @override
@@ -60,19 +62,20 @@ class _signupState extends State<signup> {
                           children:  [
                             SizedBox(height: 40,),
                             
-                            
+                              Image.network('https://cdn2.iconfinder.com/data/icons/user-interface-outlined-2020/48/create_new_account-512.png',width: 90,height: 60,),
                               Text("Registration",
                                 style: TextStyle(
                                   color: Color.fromARGB(255, 0, 0, 0),
-                                  fontSize: 45,
+                                  fontSize: 30,
                                   fontWeight: FontWeight.bold
                                 ),
                               ),
                               
-                            SizedBox(height: 90,),
+                            SizedBox(height: 20,),
 
 
                             TextField(
+                              controller: _email,
                               decoration: InputDecoration(
                                 
                                 prefixIcon: Icon(Icons.email, size: 24),
@@ -117,6 +120,11 @@ class _signupState extends State<signup> {
                             Visibility(visible: Not_match,child: Row(
                               children: [Icon(Icons.warning,),Text("password fields deosn't match",),]
                             )),
+                            Visibility(visible: Vemail,child: Row(
+                              children: [Icon(Icons.warning,),Text("Email field is empty",),]
+                            )),
+                            
+
                                  
                               
                             
@@ -134,11 +142,21 @@ class _signupState extends State<signup> {
                                 onPressed: (){
 
                                   setState(() {
-                                    if(_pass1==_pass2){
-                                      Navigator.push(context,MaterialPageRoute(builder: (context) => HomePage()));
+
+
+                                    if(_email.text!=''){
+                                      Vemail=false;
+                                      if(_pass1.text==_pass2.text){
+                                        
+                                        Not_match=false;
+                                        Navigator.push(context,MaterialPageRoute(builder: (context) => HomePage()));
+                                      }else{
+                                        Not_match=true;
+                                      }
                                     }else{
-                                      Not_match=true;
+                                      Vemail=true;
                                     }
+
                                   });
                                   
                                 } ,

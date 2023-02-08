@@ -10,10 +10,11 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return SafeArea(child: Scaffold(
       body: Center(
-        
-           child:const Text("hello",style: TextStyle(fontSize: 50),),
+
+           child:Image.network('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTWQWe7j9kg5TF1kdp8btUiHlS0M69Ru7ufQw&usqp=CAU',width: 300,height: 150,),
+            ),
         
       )
     );

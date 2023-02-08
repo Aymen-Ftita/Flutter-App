@@ -112,6 +112,7 @@ class _ResetPassState extends State<ResetPass> {
                               )
                             ),
                             SizedBox(height: 40,),
+                            Icon(Icons.message_sharp),
                             Text("New Password will send to your mail",style: TextStyle(color:Colors.blue,fontSize: 18),)
                           ],
                         ),
@@ -131,7 +132,7 @@ class _ResetPassState extends State<ResetPass> {
                           ),
                           TextButton(
                             onPressed: (){
-                              Navigator.push(context,MaterialPageRoute(builder: (context) => signup()));
+                              Navigator.push(context,MaterialPageRoute(builder: (context) => Signin()));
                             } , 
                             child: const Text("SignIn"),
                           )
