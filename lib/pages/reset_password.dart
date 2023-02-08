@@ -54,12 +54,11 @@ class _ResetPassState extends State<ResetPass> {
                           
                           children:  [
                             SizedBox(height: 40,),
-                            
-                            
-                              Text("Reset Pass",
+                              Image.network('https://cdn1.iconfinder.com/data/icons/web-programming-misc/80/change_password-reset_password-new_password-Forgot_password-512.png',width: 80,height: 80,),
+                              Text("Reset Password",
                                 style: TextStyle(
                                   color: Color.fromARGB(255, 0, 0, 0),
-                                  fontSize: 45,
+                                  fontSize: 30,
                                   fontWeight: FontWeight.bold
                                 ),
                               ),
