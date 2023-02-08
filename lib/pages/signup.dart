@@ -62,7 +62,7 @@ class _signupState extends State<signup> {
                           children:  [
                             SizedBox(height: 40,),
                             
-                              Image.network('https://cdn2.iconfinder.com/data/icons/user-interface-outlined-2020/48/create_new_account-512.png',width: 90,height: 70,),
+                              Image.network('https://cdn2.iconfinder.com/data/icons/user-interface-outlined-2020/48/create_new_account-512.png',width: 90,height: 80,),
                               Text("Registration",
                                 style: TextStyle(
                                   color: Color.fromARGB(255, 0, 0, 0),
@@ -84,7 +84,7 @@ class _signupState extends State<signup> {
                               ),
                             ),
 
-                            SizedBox(height: 35,),
+                            SizedBox(height: 20,),
 
                             
                               
