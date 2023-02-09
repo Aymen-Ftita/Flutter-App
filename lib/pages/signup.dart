@@ -24,15 +24,15 @@ class _signupState extends State<signup> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Scaffold(
-      appBar: AppBar(),
+      appBar: AppBar(backgroundColor:Color(0xFF8d86c9)),
       drawer: Drawer(),
-      backgroundColor: Colors.black,
+      backgroundColor: Color(0xFF8d86c9),
       body:Stack(
         children: [
           Container(
             height: MediaQuery.of(context).size.height*0.6,
             decoration: const BoxDecoration(
-              color: Colors.blue,
+              color: Color(0xFFcac4ce),
               borderRadius: BorderRadius.only(
                 bottomLeft: Radius.circular(20),
                 bottomRight:  Radius.circular(20),
@@ -54,7 +54,7 @@ class _signupState extends State<signup> {
                         width: MediaQuery.of(context).size.height * 0.4,
                         height: MediaQuery.of(context).size.height * 0.7,
                         decoration: BoxDecoration(
-                          color: Colors.white,
+                          color: Color(0xFFf7ece1),
                           borderRadius: BorderRadius.circular(20),
                         ),
                         child: Column(
@@ -65,7 +65,7 @@ class _signupState extends State<signup> {
                               Image.network('https://cdn2.iconfinder.com/data/icons/user-interface-outlined-2020/48/create_new_account-512.png',width: 90,height: 80,),
                               Text("Registration",
                                 style: TextStyle(
-                                  color: Color.fromARGB(255, 0, 0, 0),
+                                  color: Color(0xFF8d86c9),
                                   fontSize: 30,
                                   fontWeight: FontWeight.bold
                                 ),
@@ -135,7 +135,7 @@ class _signupState extends State<signup> {
                               width: 170,
                               height: 60,
                               decoration: BoxDecoration(
-                                color: Color.fromARGB(255, 1, 0, 0),
+                                color: Color(0xFF8d86c9),
                                 borderRadius: BorderRadius.circular(10),
                               ),
                               child: TextButton(
@@ -164,8 +164,8 @@ class _signupState extends State<signup> {
                                   Text("SignUp",
                                     style: 
                                       TextStyle(
-                                        color: Colors.white,
-                                        fontSize: 20,
+                                        color: Color(0xFFf7ece1),
+                                        fontSize: 25,
                                         )
                                 ),
                               )
@@ -191,7 +191,7 @@ class _signupState extends State<signup> {
                             onPressed: (){
                               Navigator.push(context,MaterialPageRoute(builder: (context) => Signin()));
                             } , 
-                            child: const Text("SignIn")
+                            child: const Text("SignIn",style: TextStyle(color: Color(0xFF242038),fontSize: 20),)
                           )
                        ]
                       )  

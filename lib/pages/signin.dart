@@ -17,15 +17,15 @@ class _SigninState extends State<Signin> {
   @override
   Widget build(BuildContext context) {
     return  Scaffold(
-      appBar: AppBar(),
+      appBar: AppBar(backgroundColor:Color(0xFF8d86c9) ,),
       drawer: Drawer(),
-      backgroundColor: Colors.black,
+      backgroundColor: Color(0xFF8d86c9),
       body:Stack(
         children: [
           Container(
             height: MediaQuery.of(context).size.height*0.6,
             decoration: const BoxDecoration(
-              color: Colors.blue,
+              color: Color(0xFFcac4ce),
               borderRadius: BorderRadius.only(
                 bottomLeft: Radius.circular(20),
                 bottomRight:  Radius.circular(20),
@@ -47,7 +47,7 @@ class _SigninState extends State<Signin> {
                         width: MediaQuery.of(context).size.height * 0.4,
                         height: MediaQuery.of(context).size.height * 0.7,
                         decoration: BoxDecoration(
-                          color: Colors.white,
+                          color: Color(0xFFf7ece1),
                           borderRadius: BorderRadius.circular(20),
                         ),
                         child: Column(
@@ -59,7 +59,7 @@ class _SigninState extends State<Signin> {
                               SizedBox(height: 10,),
                               Text("Login",
                                 style: TextStyle(
-                                  color: Color.fromARGB(255, 0, 0, 0),
+                                  color: Color(0xFF8d86c9),
                                   fontSize: 30,
                                   fontWeight: FontWeight.bold
                                 ),
@@ -100,7 +100,7 @@ class _SigninState extends State<Signin> {
                               
                             TextButton(onPressed: (() {
                               Navigator.push(context,MaterialPageRoute(builder: (context) => ResetPass()));
-                            }), child: Text("Forget your password ?")),
+                            }), child: Text("Forget your password ?",style: TextStyle(color:Color(0xFF242038 )))),
                             
                             SizedBox(height: 40,),
 
@@ -109,7 +109,7 @@ class _SigninState extends State<Signin> {
                               width: 170,
                               height: 60,
                               decoration: BoxDecoration(
-                                color: Color.fromARGB(255, 1, 0, 0),
+                                color: Color(0xFF8d86c9),
                                 borderRadius: BorderRadius.circular(10),
                               ),
                               child: TextButton(
@@ -120,8 +120,8 @@ class _SigninState extends State<Signin> {
                                   Text("SignIn",
                                     style: 
                                       TextStyle(
-                                        color: Colors.white,
-                                        fontSize: 20,
+                                        color: Color(0xFFf7ece1),
+                                        fontSize: 25,
                                         )
                                 ),
                               )
@@ -141,13 +141,13 @@ class _SigninState extends State<Signin> {
                           
                           Text(
                             "Don't have an account ?",
-                            style: TextStyle(color:Color.fromARGB(255, 255, 255, 255)),
+                            style: TextStyle(color:Color(0xFFf7ece1)),
                           ),
                           TextButton(
                             onPressed: (){
                               Navigator.push(context,MaterialPageRoute(builder: (context) => signup()));
                             } , 
-                            child: const Text("Signup")
+                            child: const Text("Signup",style: TextStyle(color: Color(0xFF242038),fontSize: 20),)
                           )
                        ]
                       )  

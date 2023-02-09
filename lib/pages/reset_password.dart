@@ -17,15 +17,15 @@ class _ResetPassState extends State<ResetPass> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(),
+      appBar: AppBar(backgroundColor:Color(0xFF8d86c9) ),
       drawer: Drawer(),
-      backgroundColor: Colors.black,
+      backgroundColor: Color(0xFF8d86c9),
       body:Stack(
         children: [
           Container(
             height: MediaQuery.of(context).size.height*0.6,
             decoration: const BoxDecoration(
-              color: Colors.blue,
+              color: Color(0xFFcac4ce),
               borderRadius: BorderRadius.only(
                 bottomLeft: Radius.circular(20),
                 bottomRight:  Radius.circular(20),
@@ -47,7 +47,7 @@ class _ResetPassState extends State<ResetPass> {
                         width: MediaQuery.of(context).size.height * 0.4,
                         height: MediaQuery.of(context).size.height * 0.7,
                         decoration: BoxDecoration(
-                          color: Colors.white,
+                          color: Color(0xFFf7ece1),
                           borderRadius: BorderRadius.circular(20),
                         ),
                         child: Column(
@@ -57,7 +57,7 @@ class _ResetPassState extends State<ResetPass> {
                               Image.network('https://cdn1.iconfinder.com/data/icons/web-programming-misc/80/change_password-reset_password-new_password-Forgot_password-512.png',width: 80,height: 80,),
                               Text("Reset Password",
                                 style: TextStyle(
-                                  color: Color.fromARGB(255, 0, 0, 0),
+                                  color: Color(0xFF8d86c9),
                                   fontSize: 30,
                                   fontWeight: FontWeight.bold
                                 ),
@@ -93,7 +93,7 @@ class _ResetPassState extends State<ResetPass> {
                               width: 170,
                               height: 60,
                               decoration: BoxDecoration(
-                                color: Color.fromARGB(255, 1, 0, 0),
+                                color: Color(0xFF8d86c9),
                                 borderRadius: BorderRadius.circular(10),
                               ),
                               child: TextButton(
@@ -112,7 +112,7 @@ class _ResetPassState extends State<ResetPass> {
                             ),
                             SizedBox(height: 40,),
                             Icon(Icons.message_sharp),
-                            Text("New Password will send to your mail",style: TextStyle(color:Colors.blue,fontSize: 18),)
+                            Text("New Password will send to your mail",style: TextStyle(color:Color(0xFF242038 ),fontSize: 18),)
                           ],
                         ),
                       )
@@ -127,13 +127,13 @@ class _ResetPassState extends State<ResetPass> {
                           
                           Text(
                             " have an account ?",
-                            style: TextStyle(color:Color.fromARGB(255, 255, 255, 255)),
+                            style: TextStyle(color:Color(0xFFf7ece1)),
                           ),
                           TextButton(
                             onPressed: (){
                               Navigator.push(context,MaterialPageRoute(builder: (context) => Signin()));
                             } , 
-                            child: const Text("SignIn"),
+                            child: const Text("SignIn",style: TextStyle(color: Color(0xFF242038),fontSize: 20),),
                           )
                        ]
                       )  
