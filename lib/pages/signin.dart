@@ -17,8 +17,9 @@ class _SigninState extends State<Signin> {
   @override
   Widget build(BuildContext context) {
     return  Scaffold(
-      appBar: AppBar(backgroundColor:Color(0xFF8d86c9) ,),
-      drawer: Drawer(),
+      resizeToAvoidBottomInset: false,
+      
+      
       backgroundColor: Color(0xFF8d86c9),
       body:Stack(
         children: [
@@ -42,7 +43,7 @@ class _SigninState extends State<Signin> {
                   children: [
                     
                     Padding(
-                      padding: const EdgeInsets.only(top: 20,left: 12,right: 12),
+                      padding: const EdgeInsets.only(top: 40,left: 12,right: 12),
                       child: Container(
                         width: MediaQuery.of(context).size.height * 0.4,
                         height: MediaQuery.of(context).size.height * 0.7,
@@ -134,7 +135,7 @@ class _SigninState extends State<Signin> {
 
                     // ignore: prefer_const_constructors
                     Padding(
-                      padding:const EdgeInsets.only(top: 30,left: 12,right: 12,),
+                      padding:const EdgeInsets.only(top: 60,left: 12,right: 12,),
                       child: Row(
                         mainAxisAlignment:MainAxisAlignment.spaceBetween ,
                         children:[

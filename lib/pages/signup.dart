@@ -22,10 +22,11 @@ class _signupState extends State<signup> {
   TextEditingController _pass2 = TextEditingController();
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Scaffold(
-      appBar: AppBar(backgroundColor:Color(0xFF8d86c9)),
-      drawer: Drawer(),
+    return 
+      
+      Scaffold(
+      resizeToAvoidBottomInset: false,
+      
       backgroundColor: Color(0xFF8d86c9),
       body:Stack(
         children: [
@@ -49,7 +50,7 @@ class _signupState extends State<signup> {
                   children: [
                     
                     Padding(
-                      padding: const EdgeInsets.only(top: 20,left: 12,right: 12),
+                      padding: const EdgeInsets.only(top: 40,left: 12,right: 12),
                       child: Container(
                         width: MediaQuery.of(context).size.height * 0.4,
                         height: MediaQuery.of(context).size.height * 0.7,
@@ -71,7 +72,7 @@ class _signupState extends State<signup> {
                                 ),
                               ),
                               
-                            SizedBox(height: 20,),
+                            SizedBox(height: 40,),
 
 
                             TextField(
@@ -84,7 +85,7 @@ class _signupState extends State<signup> {
                               ),
                             ),
 
-                            SizedBox(height: 20,),
+                            
 
                             
                               
@@ -178,7 +179,7 @@ class _signupState extends State<signup> {
 
                     // ignore: prefer_const_constructors
                     Padding(
-                      padding:const EdgeInsets.only(top: 30,left: 12,right: 12,),
+                      padding:const EdgeInsets.only(top: 60,left: 12,right: 12,),
                       child: Row(
                         mainAxisAlignment:MainAxisAlignment.spaceBetween ,
                         children:[
@@ -203,6 +204,6 @@ class _signupState extends State<signup> {
           
       )],
       ) ,
-    ));
+    );
   }
 }
