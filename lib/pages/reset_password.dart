@@ -17,13 +17,14 @@ class _ResetPassState extends State<ResetPass> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color(0xFF8d86c9),
+      backgroundColor: Color.fromARGB(255, 46, 85, 139),
       body:Stack(
         children: [
+          Image.asset('assets/images/bg.png'),
           Container(
             height: MediaQuery.of(context).size.height*0.6,
             decoration: const BoxDecoration(
-              color: Color(0xFFcac4ce),
+              color: Color(0xFFAEE5D0),
               borderRadius: BorderRadius.only(
                 bottomLeft: Radius.circular(20),
                 bottomRight:  Radius.circular(20),
@@ -45,17 +46,17 @@ class _ResetPassState extends State<ResetPass> {
                         width: MediaQuery.of(context).size.height * 0.4,
                         height: MediaQuery.of(context).size.height * 0.7,
                         decoration: BoxDecoration(
-                          color: Color(0xFFf7ece1),
+                          color: Color.fromARGB(255, 255, 255, 255),
                           borderRadius: BorderRadius.circular(20),
                         ),
                         child: Column(
                           
                           children:  [
                             SizedBox(height: 40,),
-                              Image.network('https://cdn1.iconfinder.com/data/icons/web-programming-misc/80/change_password-reset_password-new_password-Forgot_password-512.png',width: 80,height: 80,),
+                              Image.asset('assets/icons/reset.gif',width: 80,height: 80,),
                               Text("Reset Password",
                                 style: TextStyle(
-                                  color: Color(0xFF8d86c9),
+                                  color: Color.fromARGB(255, 46, 85, 139),
                                   fontSize: 30,
                                   fontWeight: FontWeight.bold
                                 ),
@@ -91,7 +92,7 @@ class _ResetPassState extends State<ResetPass> {
                               width: 170,
                               height: 60,
                               decoration: BoxDecoration(
-                                color: Color(0xFF8d86c9),
+                                color: Color.fromARGB(255, 46, 85, 139),
                                 borderRadius: BorderRadius.circular(10),
                               ),
                               child: TextButton(
@@ -110,7 +111,7 @@ class _ResetPassState extends State<ResetPass> {
                             ),
                             SizedBox(height: 40,),
                             Icon(Icons.message_sharp),
-                            Text("New Password will send to your mail",style: TextStyle(color:Color(0xFF242038 ),fontSize: 18),)
+                            Text("Verification code will send to your mail",style: TextStyle(color:Color(0xFF242038 ),fontSize: 18),)
                           ],
                         ),
                       )
@@ -119,9 +120,11 @@ class _ResetPassState extends State<ResetPass> {
                     // ignore: prefer_const_constructors
                     Padding(
                       padding:const EdgeInsets.only(top: 60,left: 12,right: 12,),
-                      child: Row(
+                      child: 
+                      Row(
                         mainAxisAlignment:MainAxisAlignment.spaceBetween ,
-                        children:[
+                        children:
+                        [
                           
                           Text(
                             " have an account ?",
@@ -131,9 +134,9 @@ class _ResetPassState extends State<ResetPass> {
                             onPressed: (){
                               Navigator.push(context,MaterialPageRoute(builder: (context) => Signin()));
                             } , 
-                            child: const Text("SignIn",style: TextStyle(color: Color(0xFF242038),fontSize: 20),),
+                            child: const Text("SignIn",style: TextStyle(color: Color(0xFFAEE5D0),fontSize: 20),),
                           )
-                       ]
+                      ]
                       )  
                     ),
                   ],
