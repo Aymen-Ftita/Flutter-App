@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'pages/signin.dart';
+import 'package:fspotify/pages/welcome_page.dart';
 import 'package:firebase_core/firebase_core.dart';
 
 void main() async {
@@ -15,12 +15,12 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
+      title: 'FollowMe',
       theme: ThemeData(
         
         primarySwatch: Colors.blue,
       ),
-      home: const Signin(),
+      home: const WelcomePage(),
     );
   }
 }
