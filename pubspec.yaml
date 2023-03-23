@@ -40,6 +40,12 @@ dependencies:
   firebase_core: ^2.5.0
   curved_navigation_bar: ^1.0.3
   flutter_svg: ^2.0.2
+  http: ^0.13.5
+  qr_flutter: ^4.0.0
+  cloud_firestore:
+  intl:
+  awesome_dialog: ^3.0.2
+  
 
 dev_dependencies:
   flutter_test:

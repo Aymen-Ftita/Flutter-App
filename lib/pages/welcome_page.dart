@@ -23,7 +23,7 @@ class WelcomePage extends StatelessWidget {
                   const SizedBox(height: 90),
                   
                   Image.asset('assets/images/logo.png',width: 180 ,),
-                  Text('FollowMe',style: TextStyle(color: Colors.white,fontWeight: FontWeight.w900),),
+                  const Text('FollowMe',style: TextStyle(color: Colors.white,fontWeight: FontWeight.w900),),
                   
                         
                 Image.asset("assets/images/welcomeBoy.gif"),
@@ -47,7 +47,7 @@ class WelcomePage extends StatelessWidget {
                   child: const Text('SIGN IN',style: TextStyle(fontSize: 25, ),),
                 ),
                         
-                SizedBox(height: 40,),
+                const SizedBox(height: 40,),
                         
                 ElevatedButton(
                   onPressed: (){

@@ -1,8 +1,10 @@
 import 'dart:ui';
 
+import 'package:awesome_dialog/awesome_dialog.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:fspotify/pages/signin.dart';
-import 'package:fspotify/pages/signup.dart';
+
 
 class ResetPass extends StatefulWidget {
   const ResetPass({super.key});
@@ -12,14 +14,14 @@ class ResetPass extends StatefulWidget {
 }
 
 class _ResetPassState extends State<ResetPass> {
-  bool show = true;
-  bool Not_match = false;
-  TextEditingController _pass1 = TextEditingController();
-  TextEditingController _pass2 = TextEditingController();
+  
+  final TextEditingController email = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color.fromARGB(255, 46, 85, 139),
+      resizeToAvoidBottomInset: false,
+      backgroundColor: const Color.fromARGB(255, 46, 85, 139),
       body:Stack(
         children: [
           Image.asset('assets/images/bg.png'),
@@ -35,7 +37,7 @@ class _ResetPassState extends State<ResetPass> {
             
           ),
           Padding(
-            padding: EdgeInsets.all(8.0),
+            padding: const EdgeInsets.all(8.0),
             child:BackdropFilter(
               filter: ImageFilter.blur(sigmaX: 3, sigmaY: 2),
               child: Column(
@@ -50,15 +52,15 @@ class _ResetPassState extends State<ResetPass> {
                           width: MediaQuery.of(context).size.height * 0.4,
                           height: MediaQuery.of(context).size.height * 0.7,
                           decoration: BoxDecoration(
-                            color: Color.fromARGB(255, 255, 255, 255),
+                            color: const Color.fromARGB(255, 255, 255, 255),
                             borderRadius: BorderRadius.circular(20),
                           ),
                           child: Column(
                             
                             children:  [
-                              SizedBox(height: 40,),
+                              const SizedBox(height: 40,),
                                 Image.asset('assets/icons/reset.gif',width: 80,height: 80,),
-                                Text("Reset Password",
+                                const Text("Reset Password",
                                   style: TextStyle(
                                     color: Color.fromARGB(255, 46, 85, 139),
                                     fontSize: 30,
@@ -66,19 +68,23 @@ class _ResetPassState extends State<ResetPass> {
                                   ),
                                 ),
                                 
-                              SizedBox(height: 90,),
+                              const SizedBox(height: 90,),
             
             
                               TextField(
-                                decoration: InputDecoration(
-                                  
+                                controller: email,
+                                decoration: const InputDecoration(
+                                  contentPadding: EdgeInsets.all(8.0),
                                   prefixIcon: Icon(Icons.email, size: 24),
                                   
                                   hintText: '  Email',
+                                  border:  OutlineInputBorder(
+                                          borderRadius:BorderRadius.all(Radius.circular(6.0)) ,
+                                        )
                                 ),
                               ),
             
-                              SizedBox(height: 35,),
+                              const SizedBox(height: 35,),
             
                               
                                 
@@ -89,22 +95,44 @@ class _ResetPassState extends State<ResetPass> {
                                 
                             
                               
-                              SizedBox(height: 40,),
+                              const SizedBox(height: 40,),
             
                               Container(
                                 
                                 width: 170,
                                 height: 60,
                                 decoration: BoxDecoration(
-                                  color: Color.fromARGB(255, 46, 85, 139),
+                                  color: const Color.fromARGB(255, 46, 85, 139),
                                   borderRadius: BorderRadius.circular(10),
                                 ),
                                 child: TextButton(
-                                  onPressed: (){
-                                    Navigator.push(context,MaterialPageRoute(builder: (context) => Signin()));
+                                  onPressed: ()async{
+                                    try {
+                                      FirebaseAuth.instance.sendPasswordResetEmail(email: email.text.trim()).then((value) => {
+                                        // ignore: avoid_print
+                                        print('Email sent'),
+                                        AwesomeDialog(
+                                            context: context,
+                                            dialogType: DialogType.warning,
+                                            headerAnimationLoop: false,
+                                            animType: AnimType.bottomSlide,
+                                            title: 'Email Sent',
+                                            desc: 'Please check your email Box to reset paswword',
+                                            buttonsTextStyle: const TextStyle(color: Color.fromARGB(255, 46, 85, 139),fontSize: 20),
+                                            showCloseIcon: true,
+                                            btnOkColor: const Color(0xFFAEE5D0),
+                                            btnOkOnPress: () {Navigator.push(context,MaterialPageRoute(builder: (context) => const Signin()));},
+                                          ).show()
+                                        
+                                      });
+                                    } on FirebaseAuthException catch(e){
+                                      // ignore: avoid_print
+                                      print('$e');
+                                    }
+                                    
                                   } ,
                                   child: 
-                                    Text("Send Email",
+                                    const Text("Send Email",
                                       style: 
                                         TextStyle(
                                           color: Colors.white,
@@ -113,9 +141,9 @@ class _ResetPassState extends State<ResetPass> {
                                   ),
                                 )
                               ),
-                              SizedBox(height: 40,),
-                              Icon(Icons.message_sharp),
-                              Text("Verification code will send to your mail",style: TextStyle(color:Color(0xFF242038 ),fontSize: 18),)
+                              const SizedBox(height: 40,),
+                              const Icon(Icons.message_sharp),
+                              const Text("Verification code will send to your mail",style: TextStyle(color:Color(0xFF242038 ),fontSize: 18),)
                             ],
                           ),
                         )
@@ -130,13 +158,13 @@ class _ResetPassState extends State<ResetPass> {
                           children:
                           [
                             
-                            Text(
+                            const Text(
                               " have an account ?",
                               style: TextStyle(color:Color(0xFFf7ece1)),
                             ),
                             TextButton(
                               onPressed: (){
-                                Navigator.push(context,MaterialPageRoute(builder: (context) => Signin()));
+                                Navigator.push(context,MaterialPageRoute(builder: (context) => const Signin()));
                               } , 
                               child: const Text("SignIn",style: TextStyle(color: Color(0xFFAEE5D0),fontSize: 20),),
                             )

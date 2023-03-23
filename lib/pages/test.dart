@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/container.dart';
-import 'package:flutter/src/widgets/framework.dart';
+
 
 class Test extends StatefulWidget {
   const Test({super.key});
@@ -10,11 +9,19 @@ class Test extends StatefulWidget {
 }
 
 class _TestState extends State<Test> {
+
+
+  @override
+  void initState() {
+    
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
+    return const SafeArea(
       child: Scaffold(
-        body: IconButton(icon: Icon(Icons.abc), onPressed: () {  },),
+        body: Text('data')
       ),
     );
   }

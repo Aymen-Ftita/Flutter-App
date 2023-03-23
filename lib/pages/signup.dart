@@ -1,5 +1,6 @@
 import 'dart:ui';
 
+import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:fspotify/pages/signin.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -16,6 +17,7 @@ class signup extends StatefulWidget {
 // ignore: camel_case_types
 class _signupState extends State<signup> {
   final FirebaseAuth _auth = FirebaseAuth.instance;
+  
   late String pass;
   late String email;
   bool show = true;
@@ -88,50 +90,70 @@ class _signupState extends State<signup> {
                                   height: 40,
                                 ),
 
-                                TextField(
-                                  keyboardType: TextInputType.emailAddress,
-                                  onChanged: (value) => {email = value},
-                                  controller: _email,
-                                  decoration: const InputDecoration(
-                                    prefixIcon: Icon(Icons.email, size: 24),
-                                    hintText: '  Email',
+                                Padding(
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: TextField(
+                                    keyboardType: TextInputType.emailAddress,
+                                    onChanged: (value) => {email = value},
+                                    controller: _email,
+                                    decoration: const InputDecoration(
+                                      prefixIcon: Icon(Icons.email, size: 24),
+                                      hintText: '  Email',
+                                      border: OutlineInputBorder(
+                                          borderRadius:BorderRadius.all(Radius.circular(6.0)) ,
+                                        )
+                                    ),
                                   ),
                                 ),
-
-                                TextField(
-                                  onChanged: (value) => {pass = value},
-                                  controller: _pass1,
-                                  obscureText: show,
-                                  decoration: InputDecoration(
-                                    prefixIcon: const Icon(Icons.lock, size: 24),
-                                    suffix: IconButton(
-                                        onPressed: () {
-                                          setState(() {
-                                            show = !show;
-                                          });
-                                        },
-                                        icon: Icon(show
-                                            ? Icons.visibility_rounded
-                                            : Icons.visibility_off_rounded)),
-                                    hintText: '  Password',
+                                const SizedBox(height: 5,),
+                                Padding(
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: TextField(
+                                    onChanged: (value) => {pass = value},
+                                    controller: _pass1,
+                                    obscureText: show,
+                                    decoration: InputDecoration(
+                                      contentPadding:const EdgeInsets.all(7.0),
+                                      prefixIcon: const Icon(Icons.lock, size: 24),
+                                      suffix: IconButton(
+                                          onPressed: () {
+                                            setState(() {
+                                              show = !show;
+                                            });
+                                          },
+                                          icon: Icon(show
+                                              ? Icons.visibility_rounded
+                                              : Icons.visibility_off_rounded)),
+                                      hintText: '  Password',
+                                      border: const OutlineInputBorder(
+                                          borderRadius:BorderRadius.all(Radius.circular(6.0)) ,
+                                        )
+                                    ),
                                   ),
                                 ),
-
-                                TextField(
-                                  controller: _pass2,
-                                  obscureText: show,
-                                  decoration: InputDecoration(
-                                    prefixIcon: const Icon(Icons.lock, size: 24),
-                                    suffix: IconButton(
-                                        onPressed: () {
-                                          setState(() {
-                                            show = !show;
-                                          });
-                                        },
-                                        icon: Icon(show
-                                            ? Icons.visibility_rounded
-                                            : Icons.visibility_off_rounded)),
-                                    hintText: ' Confirm Password',
+                                const SizedBox(height: 5,),
+                                Padding(
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: TextField(
+                                    controller: _pass2,
+                                    obscureText: show,
+                                    decoration: InputDecoration(
+                                      contentPadding:const EdgeInsets.all(7.0),
+                                      prefixIcon: const Icon(Icons.lock, size: 24),
+                                      suffix: IconButton(
+                                          onPressed: () {
+                                            setState(() {
+                                              show = !show;
+                                            });
+                                          },
+                                          icon: Icon(show
+                                              ? Icons.visibility_rounded
+                                              : Icons.visibility_off_rounded)),
+                                      hintText: ' Confirm Password',
+                                      border: const OutlineInputBorder(
+                                          borderRadius:BorderRadius.all(Radius.circular(6.0)) ,
+                                        )
+                                    ),
                                   ),
                                 ),
 
@@ -182,14 +204,35 @@ class _signupState extends State<signup> {
                                                 await _auth
                                                   .createUserWithEmailAndPassword(
                                                       email: email, password: pass);
+                                                
                                           // ignore: use_build_context_synchronously
-                                          Navigator.pop(
+                                          AwesomeDialog(
+                                            dialogBackgroundColor: const Color.fromARGB(255, 255, 255, 255),
+                                            context: context,
+                                            dialogType: DialogType.success,
+                                            headerAnimationLoop: false,
+                                            animType: AnimType.topSlide,
+                                            title: 'Regestration succes',
+                                            desc: 'Please try to SignIn to verify your email',
+                                            buttonsTextStyle: const TextStyle(color: Color.fromARGB(255, 46, 85, 139),fontSize: 20),
+                                            showCloseIcon: true,
+                                            btnOkColor: const Color(0xFFAEE5D0),
+                                            btnOkOnPress: () {
+                                              Navigator.pop(
                                                   context,
                                                   MaterialPageRoute(
                                                       builder: (context) =>
                                                             const Signin()));
+                                            },
+                                          ).show();      
+                                                                // ignore: use_build_context_synchronously
+                                          /*Navigator.pop(
+                                                  context,
+                                                  MaterialPageRoute(
+                                                      builder: (context) =>
+                                                            const Signin()));*/
                                         // ignore: avoid_print
-                                        }catch (e){print("---------------------"); print(e);}
+                                        }on FirebaseAuthException catch (e){ print(e.code);}
                                               // ignore: avoid_print
                                               print(email);
                                               // ignore: avoid_print
@@ -204,7 +247,6 @@ class _signupState extends State<signup> {
                                               Vemail = true;
                                             }); 
                                           }
-                                        ;
                                       },
                                       child: const Text("SignUp",
                                           style: TextStyle(

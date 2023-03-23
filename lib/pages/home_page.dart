@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:fspotify/pages/signin.dart';
+import 'package:fspotify/pages/settings_screen.dart';
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
+
+import 'chat_lobby_screen.dart';
+
+import 'map_screen.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -10,43 +14,37 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  final navigationKey = GlobalKey<CurvedNavigationBarState>();
+  int index = 0;
+  List<StatefulWidget> screens = [
+    const MapScreen(),
+    const ChatScreen(),
+    const Settings(),
+  ];
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-        child: Scaffold(
-          backgroundColor: const Color(0xFFf7ece1),
-          bottomNavigationBar: CurvedNavigationBar(
-    backgroundColor: const Color(0xFFf7ece1),
+    // ignore: prefer_const_literals_to_create_immutables
+    return Scaffold(
+    
+    bottomNavigationBar: CurvedNavigationBar(
+    
+    height: 50,
+    buttonBackgroundColor:const Color(0xFFAEE5D0) ,
+    backgroundColor:  Colors.transparent,
+    color: const Color(0xFFAEE5D0),
     items: const <Widget>[
-      Icon(Icons.home, size: 30),
-      Icon(Icons.map, size: 30),
-      Icon(Icons.person, size: 30)
-
-    ],
-    animationDuration: const Duration(milliseconds: 200),
-    onTap: (index) {
       
-    },
+      Icon(Icons.map, size: 30,color: Color.fromARGB(255, 46, 85, 139),),
+      Icon(Icons.chat, size: 30,color: Color.fromARGB(255, 46, 85, 139)),
+      Icon(Icons.settings, size: 30,color: Color.fromARGB(255, 46, 85, 139)),
+    ],
+    animationCurve: Curves.easeInOut,
+    animationDuration: const Duration(milliseconds: 200),
+    key: navigationKey,
+    index: index,
+    onTap: (index) => setState(() => this.index = index),
   ),
-      body: Center(
-        child: Column(
-          children: [
-            Image.network(
-              'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTWQWe7j9kg5TF1kdp8btUiHlS0M69Ru7ufQw&usqp=CAU',
-              width: 300,
-              height: 150,
-            ),
-            TextButton(
-                onPressed: () => {
-                      Navigator.push(context,
-                          MaterialPageRoute(builder: (context) =>  Signin()))
-                    },
-                child: const Text(
-                  "SignOut",
-                ))
-          ],
-        ),
-      ),
-    ));
+      body: screens[index],
+    );
   }
 }

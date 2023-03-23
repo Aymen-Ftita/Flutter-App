@@ -1,17 +1,26 @@
-import 'package:flutter/material.dart';
-import 'package:fspotify/pages/welcome_page.dart';
+
+
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:flutter/material.dart';
+import 'package:fspotify/pages/home_page.dart';
+
+import 'package:fspotify/pages/signin.dart';
+
+
+
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
-  runApp(const MyApp());
+  runApp( MyApp());
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+  MyApp({super.key});
 
-  // This widget is the root of your application.
+  final _auth = FirebaseAuth.instance;
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -20,7 +29,7 @@ class MyApp extends StatelessWidget {
         
         primarySwatch: Colors.blue,
       ),
-      home: const WelcomePage(),
+      home:  _auth.currentUser != null ? const HomePage() : const Signin(),
     );
   }
 }
