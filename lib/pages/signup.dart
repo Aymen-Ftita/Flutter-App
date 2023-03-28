@@ -1,10 +1,10 @@
 import 'dart:ui';
 
 import 'package:awesome_dialog/awesome_dialog.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:fspotify/pages/signin.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-
 
 // ignore: camel_case_types
 class signup extends StatefulWidget {
@@ -17,7 +17,7 @@ class signup extends StatefulWidget {
 // ignore: camel_case_types
 class _signupState extends State<signup> {
   final FirebaseAuth _auth = FirebaseAuth.instance;
-  
+
   late String pass;
   late String email;
   bool show = true;
@@ -54,8 +54,8 @@ class _signupState extends State<signup> {
                   Column(
                     children: [
                       Padding(
-                          padding:
-                              const EdgeInsets.only(top: 40, left: 12, right: 12),
+                          padding: const EdgeInsets.only(
+                              top: 40, left: 12, right: 12),
                           child: Container(
                             width: MediaQuery.of(context).size.height * 0.4,
                             height: MediaQuery.of(context).size.height * 0.7,
@@ -63,10 +63,8 @@ class _signupState extends State<signup> {
                               color: const Color.fromARGB(255, 255, 255, 255),
                               borderRadius: BorderRadius.circular(20),
                             ),
-
                             child: Column(
                               children: [
-
                                 const SizedBox(
                                   height: 40,
                                 ),
@@ -97,15 +95,17 @@ class _signupState extends State<signup> {
                                     onChanged: (value) => {email = value},
                                     controller: _email,
                                     decoration: const InputDecoration(
-                                      prefixIcon: Icon(Icons.email, size: 24),
-                                      hintText: '  Email',
-                                      border: OutlineInputBorder(
-                                          borderRadius:BorderRadius.all(Radius.circular(6.0)) ,
-                                        )
-                                    ),
+                                        prefixIcon: Icon(Icons.email, size: 24),
+                                        hintText: '  Email',
+                                        border: OutlineInputBorder(
+                                          borderRadius: BorderRadius.all(
+                                              Radius.circular(6.0)),
+                                        )),
                                   ),
                                 ),
-                                const SizedBox(height: 5,),
+                                const SizedBox(
+                                  height: 5,
+                                ),
                                 Padding(
                                   padding: const EdgeInsets.all(8.0),
                                   child: TextField(
@@ -113,47 +113,55 @@ class _signupState extends State<signup> {
                                     controller: _pass1,
                                     obscureText: show,
                                     decoration: InputDecoration(
-                                      contentPadding:const EdgeInsets.all(7.0),
-                                      prefixIcon: const Icon(Icons.lock, size: 24),
-                                      suffix: IconButton(
-                                          onPressed: () {
-                                            setState(() {
-                                              show = !show;
-                                            });
-                                          },
-                                          icon: Icon(show
-                                              ? Icons.visibility_rounded
-                                              : Icons.visibility_off_rounded)),
-                                      hintText: '  Password',
-                                      border: const OutlineInputBorder(
-                                          borderRadius:BorderRadius.all(Radius.circular(6.0)) ,
-                                        )
-                                    ),
+                                        contentPadding:
+                                            const EdgeInsets.all(7.0),
+                                        prefixIcon:
+                                            const Icon(Icons.lock, size: 24),
+                                        suffix: IconButton(
+                                            onPressed: () {
+                                              setState(() {
+                                                show = !show;
+                                              });
+                                            },
+                                            icon: Icon(show
+                                                ? Icons.visibility_rounded
+                                                : Icons
+                                                    .visibility_off_rounded)),
+                                        hintText: '  Password',
+                                        border: const OutlineInputBorder(
+                                          borderRadius: BorderRadius.all(
+                                              Radius.circular(6.0)),
+                                        )),
                                   ),
                                 ),
-                                const SizedBox(height: 5,),
+                                const SizedBox(
+                                  height: 5,
+                                ),
                                 Padding(
                                   padding: const EdgeInsets.all(8.0),
                                   child: TextField(
                                     controller: _pass2,
                                     obscureText: show,
                                     decoration: InputDecoration(
-                                      contentPadding:const EdgeInsets.all(7.0),
-                                      prefixIcon: const Icon(Icons.lock, size: 24),
-                                      suffix: IconButton(
-                                          onPressed: () {
-                                            setState(() {
-                                              show = !show;
-                                            });
-                                          },
-                                          icon: Icon(show
-                                              ? Icons.visibility_rounded
-                                              : Icons.visibility_off_rounded)),
-                                      hintText: ' Confirm Password',
-                                      border: const OutlineInputBorder(
-                                          borderRadius:BorderRadius.all(Radius.circular(6.0)) ,
-                                        )
-                                    ),
+                                        contentPadding:
+                                            const EdgeInsets.all(7.0),
+                                        prefixIcon:
+                                            const Icon(Icons.lock, size: 24),
+                                        suffix: IconButton(
+                                            onPressed: () {
+                                              setState(() {
+                                                show = !show;
+                                              });
+                                            },
+                                            icon: Icon(show
+                                                ? Icons.visibility_rounded
+                                                : Icons
+                                                    .visibility_off_rounded)),
+                                        hintText: ' Confirm Password',
+                                        border: const OutlineInputBorder(
+                                          borderRadius: BorderRadius.all(
+                                              Radius.circular(6.0)),
+                                        )),
                                   ),
                                 ),
 
@@ -163,7 +171,6 @@ class _signupState extends State<signup> {
                                       Icon(
                                         Icons.warning,
                                       ),
-                                      
                                       Text(
                                         "password fields deosn't match",
                                       ),
@@ -186,67 +193,136 @@ class _signupState extends State<signup> {
                                     width: 170,
                                     height: 60,
                                     decoration: BoxDecoration(
-                                      color: const Color.fromARGB(255, 46, 85, 139),
+                                      color: const Color.fromARGB(
+                                          255, 46, 85, 139),
                                       borderRadius: BorderRadius.circular(10),
                                     ),
                                     child: TextButton(
                                       onPressed: () async {
-                                        
-                                          if (_email.text != '') {
+                                        if (_email.text != '') {
+                                          setState(() {
+                                            Vemail = false;
+                                          });
+                                          if (_pass1.text == _pass2.text) {
                                             setState(() {
-                                              Vemail = false;
-                                            }); 
-                                            if (_pass1.text == _pass2.text) {
-                                              setState(() {
-                                                Not_match = false;
-                                              }); 
-                                              try{
-                                                await _auth
+                                              Not_match = false;
+                                            });
+                                            try {
+                                              await _auth
                                                   .createUserWithEmailAndPassword(
-                                                      email: email, password: pass);
-                                                
-                                          // ignore: use_build_context_synchronously
-                                          AwesomeDialog(
-                                            dialogBackgroundColor: const Color.fromARGB(255, 255, 255, 255),
-                                            context: context,
-                                            dialogType: DialogType.success,
-                                            headerAnimationLoop: false,
-                                            animType: AnimType.topSlide,
-                                            title: 'Regestration succes',
-                                            desc: 'Please try to SignIn to verify your email',
-                                            buttonsTextStyle: const TextStyle(color: Color.fromARGB(255, 46, 85, 139),fontSize: 20),
-                                            showCloseIcon: true,
-                                            btnOkColor: const Color(0xFFAEE5D0),
-                                            btnOkOnPress: () {
-                                              Navigator.pop(
-                                                  context,
-                                                  MaterialPageRoute(
-                                                      builder: (context) =>
-                                                            const Signin()));
-                                            },
-                                          ).show();      
-                                                                // ignore: use_build_context_synchronously
-                                          /*Navigator.pop(
+                                                      email: email,
+                                                      password: pass);
+
+                                              final firestore =
+                                                  FirebaseFirestore.instance;
+
+                                              /*await firestore.collection('users').add({
+                                                  'Uid': _auth.currentUser?.uid,
+                                                  'admin':false,
+                                                  'email':email,
+                                                  'nom':'inconnue',
+                                                  'prenom':'inconnue',
+                                                  'qrcode': "",
+                                                  'token':""                   
+                                                });*/
+
+                                              await firestore
+                                                  .collection('users')
+                                                  .doc(_auth.currentUser?.uid)
+                                                  .set({
+                                                'Uid': _auth.currentUser?.uid,
+                                                'admin': false,
+                                                'email': email,
+                                                'nom': 'inconnue',
+                                                'prenom': 'inconnue',
+                                                'profile_img': '',
+                                                'qrcode': "",
+                                                'token': ""
+                                              });
+
+                                              // ignore: use_build_context_synchronously
+                                              AwesomeDialog(
+                                                dialogBackgroundColor:
+                                                    const Color.fromARGB(
+                                                        255, 255, 255, 255),
+                                                context: context,
+                                                dialogType: DialogType.success,
+                                                headerAnimationLoop: false,
+                                                animType: AnimType.topSlide,
+                                                title: 'Regestration succes',
+                                                desc:
+                                                    'Please try to SignIn to verify your email',
+                                                buttonsTextStyle:
+                                                    const TextStyle(
+                                                        color: Color.fromARGB(
+                                                            255, 46, 85, 139),
+                                                        fontSize: 20),
+                                                showCloseIcon: true,
+                                                btnOkColor:
+                                                    const Color(0xFFAEE5D0),
+                                                btnOkOnPress: () {
+                                                  Navigator.pop(
+                                                      context,
+                                                      MaterialPageRoute(
+                                                          builder: (context) =>
+                                                              const Signin()));
+                                                },
+                                              ).show();
+                                              // ignore: use_build_context_synchronously
+                                              /*Navigator.pop(
                                                   context,
                                                   MaterialPageRoute(
                                                       builder: (context) =>
                                                             const Signin()));*/
-                                        // ignore: avoid_print
-                                        }on FirebaseAuthException catch (e){ print(e.code);}
                                               // ignore: avoid_print
-                                              print(email);
+                                            } on FirebaseAuthException catch (e) {
+                                              if (e.code ==
+                                                  'email-already-in-use') {
+                                                AwesomeDialog(
+                                                  dialogBackgroundColor:
+                                                      const Color.fromARGB(
+                                                          255, 255, 255, 255),
+                                                  context: context,
+                                                  dialogType: DialogType.info,
+                                                  headerAnimationLoop: false,
+                                                  animType: AnimType.topSlide,
+                                                  title: 'Email Already In Use',
+                                                  desc:
+                                                      'Try to Reset Your Password',
+                                                  buttonsTextStyle:
+                                                      const TextStyle(
+                                                          color: Color.fromARGB(
+                                                              255, 46, 85, 139),
+                                                          fontSize: 20),
+                                                  showCloseIcon: true,
+                                                  btnOkColor:
+                                                      const Color(0xFFAEE5D0),
+                                                  btnOkOnPress: () {
+                                                    Navigator.pop(
+                                                        context,
+                                                        MaterialPageRoute(
+                                                            builder: (context) =>
+                                                                const Signin()));
+                                                  },
+                                                ).show();
+                                              }
                                               // ignore: avoid_print
-                                              print(pass);
-                                            } else {
-                                              setState(() {
-                                                Not_match = true;
-                                              });
+                                              print(e.code);
                                             }
+                                            // ignore: avoid_print
+                                            print(email);
+                                            // ignore: avoid_print
+                                            print(pass);
                                           } else {
                                             setState(() {
-                                              Vemail = true;
-                                            }); 
+                                              Not_match = true;
+                                            });
                                           }
+                                        } else {
+                                          setState(() {
+                                            Vemail = true;
+                                          });
+                                        }
                                       },
                                       child: const Text("SignUp",
                                           style: TextStyle(
@@ -257,7 +333,7 @@ class _signupState extends State<signup> {
                               ],
                             ),
                           )),
-            
+
                       // ignore: prefer_const_constructors
                       Padding(
                           padding: const EdgeInsets.only(
@@ -271,19 +347,22 @@ class _signupState extends State<signup> {
                                 const Text(
                                   "you have an account ?",
                                   style: TextStyle(
-                                      color: Color.fromARGB(255, 255, 255, 255)),
+                                      color:
+                                          Color.fromARGB(255, 255, 255, 255)),
                                 ),
                                 TextButton(
                                     onPressed: () {
                                       Navigator.push(
                                           context,
                                           MaterialPageRoute(
-                                              builder: (context) => const Signin()));
+                                              builder: (context) =>
+                                                  const Signin()));
                                     },
                                     child: const Text(
                                       "SignIn",
                                       style: TextStyle(
-                                          color: Color(0xFFAEE5D0), fontSize: 20),
+                                          color: Color(0xFFAEE5D0),
+                                          fontSize: 20),
                                     ))
                               ])),
                     ],

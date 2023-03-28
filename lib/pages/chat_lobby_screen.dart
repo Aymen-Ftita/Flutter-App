@@ -1,13 +1,11 @@
+import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:fspotify/pages/signin.dart';
 
-
 final _firestore = FirebaseFirestore.instance;
 late User signedInUser;
-
-
 
 class ChatScreen extends StatefulWidget {
   const ChatScreen({Key? key}) : super(key: key);
@@ -19,10 +17,10 @@ class ChatScreen extends StatefulWidget {
 
 class _ChatScreenState extends State<ChatScreen> {
   final _auth = FirebaseAuth.instance;
-  
+
   String? messageText;
   final messageT = TextEditingController();
-  
+
   @override
   void initState() {
     super.initState();
@@ -43,10 +41,9 @@ class _ChatScreenState extends State<ChatScreen> {
     }
   }
 
-
   void messageStreams() async {
-    await for (var snapshot in _firestore.collection('messages').snapshots() ){
-      for (var message in snapshot.docs){
+    await for (var snapshot in _firestore.collection('messages').snapshots()) {
+      for (var message in snapshot.docs) {
         // ignore: avoid_print
         print(message.data());
       }
@@ -62,18 +59,15 @@ class _ChatScreenState extends State<ChatScreen> {
           children: const [
             //Image.asset('images/logo.png', height: 25),
             SizedBox(width: 10),
-            Text('MessageMe')
+            Text('MessageBox')
           ],
         ),
         actions: [
           IconButton(
             onPressed: () {
               _auth.signOut();
-              Navigator.push(
-              context,
-              MaterialPageRoute(
-                builder: (context) =>
-                const Signin()));
+              Navigator.push(context,
+                  MaterialPageRoute(builder: (context) => const Signin()));
             },
             icon: const Icon(Icons.close),
           )
@@ -100,7 +94,9 @@ class _ChatScreenState extends State<ChatScreen> {
                   Expanded(
                     child: TextField(
                       controller: messageT,
-                      onChanged: (value) {messageText=value;},
+                      onChanged: (value) {
+                        messageText = value;
+                      },
                       decoration: const InputDecoration(
                         contentPadding: EdgeInsets.symmetric(
                           vertical: 10,
@@ -112,10 +108,10 @@ class _ChatScreenState extends State<ChatScreen> {
                     ),
                   ),
                   TextButton(
-                    onPressed: (){
+                    onPressed: () {
                       _firestore.collection('messages').add({
-                        'text':messageText,
-                        'sender':signedInUser.email,
+                        'text': messageText,
+                        'sender': signedInUser.email,
                         'reported': false,
                         'time': FieldValue.serverTimestamp(),
                       });
@@ -139,7 +135,6 @@ class _ChatScreenState extends State<ChatScreen> {
             ),
           ],
         ),
-        
       ),
     );
   }
@@ -151,78 +146,133 @@ class MessageStreamBuilder extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return StreamBuilder<QuerySnapshot>(
-              stream: _firestore.collection('messages').orderBy('time').snapshots(),
-              builder: (context,snapshot){
-                List<MessageLine> messageWidgets =[];
+      stream: _firestore.collection('messages').orderBy('time').snapshots(),
+      builder: (context, snapshot) {
+        List<MessageLine> messageWidgets = [];
 
-                if(!snapshot.hasData){
-                  return const Center(child:  CircularProgressIndicator(color:Color.fromARGB(255, 46, 85, 139),backgroundColor:Color(0xFFAEE5D0)  ,));
-                }
+        if (!snapshot.hasData) {
+          return const Center(
+              child: CircularProgressIndicator(
+            color: Color.fromARGB(255, 46, 85, 139),
+            backgroundColor: Color(0xFFAEE5D0),
+          ));
+        }
 
-                final messages=snapshot.data!.docs.reversed;
+        final messages = snapshot.data!.docs.reversed;
 
-                for(var message in messages){
-                  final messageText = message.get('text');
-                  final messgaeSender = message.get('sender');
+        for (var message in messages) {
+          final messageText = message.get('text');
+          final messgaeSender = message.get('sender');
+          final rep = message.get('reported');
 
-                  final currentUser = signedInUser.email;
+          final currentUser = signedInUser.email;
 
-                  if(currentUser==messgaeSender){
+          if (currentUser == messgaeSender) {}
 
-                  }
+          final messageWidget = MessageLine(
+              sender: messgaeSender,
+              text: messageText,
+              isMe: currentUser == messgaeSender,
+              rep: rep);
+          messageWidgets.add(messageWidget);
+        }
 
-                  final messageWidget = MessageLine(sender: messgaeSender,text: messageText, isMe: currentUser==messgaeSender,);
-                  messageWidgets.add(messageWidget);
-                }
-
-                return Expanded(
-                  child: ListView(
-                    reverse: true,
-                    padding: const EdgeInsets.symmetric(horizontal: 10,vertical: 20),
-                    children: messageWidgets,
-                  ),
-                );
-              },
-            );
+        return Expanded(
+          child: ListView(
+            reverse: true,
+            padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 20),
+            children: messageWidgets,
+          ),
+        );
+      },
+    );
   }
 }
 
-
-
-
 class MessageLine extends StatelessWidget {
-  const MessageLine({this.text,this.sender, required this.isMe, super.key});
+  const MessageLine(
+      {required this.rep,
+      this.text,
+      this.sender,
+      required this.isMe,
+      super.key});
 
   final String? text;
   final String? sender;
   final bool isMe;
+  final bool rep;
+
+  void report() {
+    _firestore.collection('messages').doc(sender).set({
+      'text': text,
+      'sender': sender,
+      'reported': true,
+      'time': FieldValue.serverTimestamp(),
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
-    return  Padding(
+    return Padding(
       padding: const EdgeInsets.all(10.0),
       child: Column(
-        crossAxisAlignment:isMe? CrossAxisAlignment.end : CrossAxisAlignment.start,
+        crossAxisAlignment:
+            isMe ? CrossAxisAlignment.end : CrossAxisAlignment.start,
         children: [
-          Text('$sender',style: const TextStyle(fontSize: 12,color: Colors.black45),),
-          Material(
-            elevation: 5,
-            borderRadius: isMe? const BorderRadius.only(
-              topLeft: Radius.circular(30),
-              bottomLeft: Radius.circular(30),
-              bottomRight: Radius.circular(30),
-              
-            ):const BorderRadius.only(
-              topRight: Radius.circular(30),
-              bottomLeft: Radius.circular(30),
-              bottomRight: Radius.circular(30),
-              
-            ),
-            color:isMe? const Color.fromARGB(255, 46, 85, 139):const Color.fromARGB(255, 255, 255, 255),
-            child: Padding(
-              padding: const EdgeInsets.symmetric(vertical: 10,horizontal: 20),
-              child: Text('$text',style:  TextStyle(color: isMe ? Colors.white : Colors.black87,fontSize: 15),),
-            )),
+          Text(
+            '$sender',
+            style: const TextStyle(fontSize: 12, color: Colors.black45),
+          ),
+          GestureDetector(
+            onLongPress: () {
+              AwesomeDialog(
+                context: context,
+                dialogType: DialogType.warning,
+                headerAnimationLoop: false,
+                animType: AnimType.bottomSlide,
+                title: 'Do you want to report this Message?',
+                desc: 'Pleaze Make Sure Your Request! ',
+                buttonsTextStyle: const TextStyle(
+                    color: Color.fromARGB(255, 46, 85, 139), fontSize: 20),
+                showCloseIcon: true,
+                btnOkColor: const Color(0xFFAEE5D0),
+                btnOkOnPress: report,
+                btnCancelOnPress: () {},
+              ).show();
+            },
+            child: Material(
+                elevation: 5,
+                borderRadius: isMe
+                    ? const BorderRadius.only(
+                        topLeft: Radius.circular(30),
+                        bottomLeft: Radius.circular(30),
+                        bottomRight: Radius.circular(30),
+                      )
+                    : const BorderRadius.only(
+                        topRight: Radius.circular(30),
+                        bottomLeft: Radius.circular(30),
+                        bottomRight: Radius.circular(30),
+                      ),
+                color: isMe
+                    ? const Color.fromARGB(255, 46, 85, 139)
+                    : const Color.fromARGB(255, 255, 255, 255),
+                child: Padding(
+                  padding:
+                      const EdgeInsets.symmetric(vertical: 10, horizontal: 20),
+                  child: rep
+                      ? Text(
+                          '$text (This message was reported )',
+                          style:
+                              const TextStyle(color: Colors.red, fontSize: 15),
+                        )
+                      : Text(
+                          '$text',
+                          style: TextStyle(
+                              color: isMe ? Colors.white : Colors.black87,
+                              fontSize: 15),
+                        ),
+                )),
+          ),
         ],
       ),
     );
